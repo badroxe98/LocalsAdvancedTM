@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!-- SITE TITTLE -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administrator</title>
+<link type="text/css"
+	href="../static/plugins/bootstrap/css/bootstrap-timepicker.min.css"
+	th:href="@{plugins/bootstrap/css/bootstrap-timepicker.min.css}" />
+<script type="text/javascript"
+	src="../static/plugins/bootstrap/js/bootstrap-timepicker.min.js"
+	th:src="@{plugins/bootstrap/js/bootstrap-timepicker.min.js}"></script>
+<!-- DateTimePicker -->
+
+<link
+	href="../static/plugins/bootstrap/css/bootstrap-datetimepicker.min.css"
+	th:href="@{plugins/bootstrap/css/bootstrap-datetimepicker.min.css}"
+	rel="stylesheet">
+
+<!-- FAVICON -->
+<link href="../static/images/favicon.png"
+	th:href="@{../images/favicon.png}" rel="shortcut icon">
+
+
+<!-- PLUGINS CSS STYLE -->
+<!-- <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="../static/plugins/bootstrap/css/bootstrap.min.css"
+	th:href="@{plugins/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	href="../static/plugins/bootstrap/css/bootstrap-slider.css"
+	th:href="@{plugins/bootstrap/css/bootstrap-slider.css}">
+<!-- Font Awesome -->
+<link href="plugins/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<!-- Owl Carousel -->
+<link href="../static/plugins/slick-carousel/slick/slick.css"
+	rel="stylesheet" th:href="@{plugins/slick-carousel/slick/slick.css}">
+<link href="../static/plugins/slick-carousel/slick/slick-theme.css"
+	rel="stylesheet"
+	th:href="@{plugins/slick-carousel/slick/slick-theme.css}">
+<!-- Fancy Box -->
+<link href="../static/plugins/fancybox/jquery.fancybox.pack.css"
+	rel="stylesheet"
+	th:href="@{plugins/fancybox/jquery.fancybox.pack.csss}">
+<link href="../static/plugins/jquery-nice-select/css/nice-select.css"
+	rel="stylesheet"
+	th:href="@{plugins/jquery-nice-select/css/nice-select.css}">
+<!-- CUSTOM CSS -->
+<link href="../static/css/style.css" th:href="@{css/style.css}"
+	rel="stylesheet">
+<link href="../static/css/animated.css" th:href="@{css/animated.css}"
+	rel="stylesheet">
+<link href="../static/css/datatables/dataTables.bootstrap4.min.css"
+	th:href="@{css/datatables/dataTables.bootstrap4.min.css}"
+	rel="stylesheet">
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-2d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- DataTables CSS -->
+<link href="../static/css/addons/datatables.min.css" th:href="@{css/addons/datatables.min.css}" rel="stylesheet">
+<!-- DataTables JS -->
+<script src="../static/js/addons/datatables.min.js" type="text/javascript"></script>
+
+<!-- DataTables Select CSS -->
+<link href="../static/css/addons/datatables-select.min.css" th:href="@{css/addons/datatables-select.min.css}" rel="stylesheet">
+<!-- DataTables Select JS -->
+<script src="../static/js/addons/datatables-select.min.js" type="text/javascript"></script>
+
+
+
+<style type="text/css">
+ul li.active {
+	font-weight: bold;
+}
+
+</style>
+</head>
+
+<body class="body-wrapper">
+
+	<section th:if="${session.user!=null}">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-expand-lg navbar-light navigation">
+						<a class="navbar-brand" th:href="@{/}"> <img
+							src="images/logo.png" alt="" id="logo">
+						</a>
+						<button class="navbar-toggler" type="button"
+							data-toggle="collapse" data-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav  main-nav " id="navglob">
+
+								<li class="nav-item active"><a class="nav-link "
+									id="Statistics" onclick="Afficher(this)">Charts</a></li>
+								<li class="nav-item "><a class="nav-link" id="comments"
+									onclick="Afficher(this)">Comments</a></li>
+
+							</ul>
+
+							<ul class="navbar-nav  main-nav " id="dropdownlinks">
+								<li class="nav-item dropdown dropdown-slide"><a
+									class="nav-link dropdown-toggle" href="#"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> Users <span><i
+											class="fa fa-angle-down"></i></span>
+								</a> <!-- Dropdown list -->
+									<div class="dropdown-menu">
+
+										<a class="dropdown-item" id="Users"
+											onclick="Afficher(this);showtable()">Customers</a> <a
+											class="dropdown-item" id="Trainers"
+											onclick="Afficher(this);showtable()">Trainers</a> <a
+											class="dropdown-item" id="fournisseurs"
+											onclick="Afficher(this);showtable()">Local Providers</a>
+
+
+									</div></li>
+
+								<li class="nav-item dropdown dropdown-slide"><a
+									class="nav-link dropdown-toggle" href="#"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> Trainings/Locals <span><i
+											class="fa fa-angle-down"></i></span>
+								</a> <!-- Dropdown list -->
+									<div class="dropdown-menu">
+
+										<a class="dropdown-item" onclick="Afficher(this);showtable()">Trainings</a> <a
+											class="dropdown-item" onclick="Afficher(this);showtable()">Locals</a>
+
+									</div></li>
+
+
+							</ul>
+							<ul class="navbar-nav  ml-auto main-nav"
+								style="margin-right: 0px;">
+
+
+
+								<li class="nav-item dropdown dropdown-slide"
+									style="margin-left: 10px;"><a
+									class="nav-link dropdown-toggle  rounded"
+									th:text="${session.user.nom[0]}+${session.user.prenom[0]}"
+									th:unless="${session==null}" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"
+									style="height: 40px; border: 2px solid #E1E1E1; border-radius: 5px; padding-right: 25px; padding-left: 25px; font-weight: bold;">
+										<span><i class="fa fa-angle-down"></i></span>
+								</a> <!-- Dropdown list -->
+									<div class="dropdown-menu">
+
+										<a class="dropdown-item" th:href="@{logout}">Log out</a>
+
+									</div></li>
+
+
+
+							</ul>
+
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</section>
+	<section th:if="${session.user!=null}" class=" animated fadeInLeftBig">
+		<!-- Content Row -->
+		<div class="row dashboard">
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings
+									(Monthly)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-calendar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings
+									(Annual)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-dollar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Pending Requests Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4 ">
+				<div class="card border-left-warning shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-warning text-uppercase mb-1">Application
+									Users</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${countusers}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-user fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div id="charts" class="sections animated fadeInRightBig"
+		th:if="${session.user!=null}">
+
+		<section class="container">
+
+
+			<div class="row" id="pieAndBar">
+				<div class="col-xl-6 col-md-6 mb-4" id="bar"
+					style="width: 700px; height: 400px;"></div>
+				<div class="col-xl-5 col-md-6 mb-4" id="pie"
+					style="width: 700px; height: 400px;"></div>
+			</div>
+			<script type="text/javascript">
+				 $(function(){
+				        Highcharts.chart('bar', {
+				            chart: {
+				                type: 'column'
+				            },
+				            title: {
+				                text: 'Application usage statistics'
+				            },
+				            /*subtitle: {
+				                text: CurrentYear.getDate()+'/'+mois[CurrentYear.getMonth()]+'/'+CurrentYear.getFullYear()
+				            },*/
+				            xAxis: {
+				                categories: [[${surveyMap.keySet()}]],
+				                crosshair: true
+				            },
+				            yAxis: {
+				                min: 0,
+				                max:1000,
+				                title: {
+				                    text: 'Users'
+				                }
+				            },
+				            tooltip: {
+				                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+				                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+				                '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+				                footerFormat: '</table>',
+				                shared: true,
+				                useHTML: true
+				            },
+				            plotOptions: {
+				                column: {
+				                    pointPadding: 0.2,
+				                    borderWidth: 0
+				                }
+				            },
+				            series: [{
+				                name: 'Users',
+				                data: [[${surveyMap.values()}]]
+				            }]
+				        });
+				        });
+					Highcharts.chart('pie', {
+						chart : {
+							type : 'pie',
+							options3d : {
+								enabled : true,
+								alpha : 50,
+								beta : 0
+							}
+						},
+						title : {
+							text : 'User ratings'
+						},
+						
+						tooltip : {
+							pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						plotOptions : {
+							pie : {
+								allowPointSelect : true,
+								cursor : 'pointer',
+								depth : 35,
+								dataLabels : {
+									enabled : true,
+									format : '{point.name}'
+								}
+							}
+						},
+						series : [ {
+							type : 'pie',
+							name : 'Percentage',
+							data : [ [ "1 star", [[${onestar}]] ], [ "2 stars", [[${twostars}]] ], [ "3 stars", [[${treestars}]] ] , [ "4 stars", [[${fourstars}]] ], [ "5 stars", [[${fivestars}]] ]    ]
+						} ]
+					});
+			</script>
+
+		</section>
+	</div>
+
+	<div id="Customers" class="sections" th:if="${session.user!=null}"
+		style="margin-top: 20px;">
+		<div class="container-fluid animated fadeInUpBig">
+
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Customers Table</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div th:if="${customers.empty==true}"
+							style="text-align: center; margin-bottom: 20px;">
+							<h2>No Customers</h2>
+						</div>
+						<table class="table table-bordered"  width="100%"
+							cellspacing="0" th:if="${customers.empty==false}">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Picture</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+							<tbody class="contents">
+
+								<tr th:each="customer:${customers}">
+									<td th:text="${customer.id}"></td>
+									<td th:text="${customer.prenom}"></td>
+									<td th:text="${customer.nom}"></td>
+									<td th:text="${customer.email}"></td>
+
+									<td><img style="height: 50px; width: 50px;"
+										class="img-fluid" th:src="@{getPicture(id=${customer.id})}"
+										alt="image" /></td>
+									<td style="display: flex; justify-content: center;"><button
+											class="btn btn-danger" style="height: 50px;">Block</button></td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="trainers" class="sections animated fadeInUpBig"
+		th:if="${session.user!=null}" style="margin-top: 20px;">
+		<div class="container-fluid">
+
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Trainers Table</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div th:if="${trainers.empty==true}"
+							style="text-align: center; margin-bottom: 20px;">
+							<h2>No Trainers</h2>
+						</div>
+						<table class="table table-bordered" width="100%"
+							cellspacing="0" th:if="${trainers.empty==false}">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Picture</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+							<tbody class="Trainerscontents">
+
+								<tr th:each="trainer:${trainers}">
+									<td th:text="${trainer.id}"></td>
+									<td th:text="${trainer.prenom}"></td>
+									<td th:text="${trainer.nom}"></td>
+									<td th:text="${trainer.email}"></td>
+
+									<td><img style="height: 50px; width: 50px;"
+										class="img-fluid" th:src="@{getPicture(id=${trainer.id})}"
+										alt="image" /></td>
+									<td style="display: flex; justify-content: center;"><button
+											class="btn btn-danger" style="height: 50px;">Block</button></td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="LocalProviders" class="sections  animated fadeInUpBig"
+		th:if="${session.user!=null}" style="margin-top: 20px;">
+
+		<div class="container-fluid">
+
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Trainers Table</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div th:if="${providers.empty==true}"
+							style="text-align: center; margin-bottom: 20px;">
+							<h2>No Local Providers</h2>
+						</div>
+						<table class="table table-bordered" width="100%"
+							cellspacing="0" th:if="${providers.empty==false}">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Picture</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<!--  <tfoot>
+								<tr>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Picture</th>
+									<th>Action</th>
+								</tr>
+							</tfoot>-->
+							<tbody class="Providerscontents">
+
+								<tr th:each="provider:${providers}">
+									<td th:text="${provider.id}"></td>
+									<td th:text="${provider.prenom}"></td>
+									<td th:text="${provider.nom}"></td>
+									<td th:text="${provider.email}"></td>
+
+									<td><img style="height: 50px; width: 50px;"
+										class="img-fluid" th:src="@{getPicture(id=${provider.id})}"
+										alt="image" /></td>
+									<td style="display: flex; justify-content: center;"><button
+											class="btn btn-danger" style="height: 50px;">Block</button></td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div id="Comments" class="sections animated fadeInUpBig"
+		th:if="${session.user!=null}" style="margin-top: 20px;"></div>
+
+	<div id="trainings" class="sections animated fadeInUpBig"
+		th:if="${session.user!=null}" style="margin-top: 20px;">
+		<div class="container-fluid">
+
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Trainers Table</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div th:if="${trainings.empty==true}"
+							style="text-align: center; margin-bottom: 20px;">
+							<h2>No Trainings</h2>
+						</div>
+						<table class="table table-bordered"  width="100%"
+							cellspacing="0" th:if="${trainings.empty==false}">
+							<thead>
+								<tr>
+									
+									<th>Title</th>
+									<th>Trainer / ID</th>
+									<th>Category</th>
+									<th>Price</th>
+									<th>From</th>
+									<th>To</th>
+									<th>Location</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+							<tbody class="Traininigcontents">
+
+								<tr th:each="training:${trainings}">
+									<td th:text="${training.title}"></td>
+									<td th:text="${training.user.nom+' '+training.user.prenom+' / '+ training.user.id}"></td>
+									<td th:text="${training.ArticleCat}"></td>
+									<td th:text="${training.prix}"></td>
+									<td th:text="${training.firstDay}"></td>
+									<td th:text="${training.lastDay}"></td>
+									<td th:text="${training.local.adresse+', '+training.local.ville}"></td>
+									<td style="display: flex; justify-content: center;"><button
+											class="btn btn-danger" style="height: 50px;">Block</button></td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div id="locals" class="sections animated fadeInUpBig"
+		th:if="${session.user!=null}" style="margin-top: 20px;">
+		<div class="container-fluid">
+
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Trainers Table</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div th:if="${locals.empty==true}"
+							style="text-align: center; margin-bottom: 20px;">
+							<h2>No Locals</h2>
+						</div>
+						<table class="table table-bordered"  width="100%"
+							cellspacing="0" th:if="${locals.empty==false}">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Owner / ID</th>
+									<th>Type</th>
+									<th>Price Per Hour</th>
+									<th>From</th>
+									<th>To</th>
+									<th>Address</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+							<tbody class="Localscontents">
+
+								<tr th:each="local:${locals}">
+									<td th:text="${local.intitulee}"></td>
+									<td th:text="${local.owner.nom+' '+local.owner.prenom+' / '+local.owner.id}"></td>
+									<td th:text="${local.category}"></td>
+									<td th:text="${local.prixParHeure}"></td>
+									<td th:text="${local.disponibiliteFrom}"></td>
+									<td th:text="${local.disponibiliteA}"></td>
+									<td th:text="${local.adresse+', '+local.ville}"></td>
+									<td style="display: flex; justify-content: center;"><button
+											class="btn btn-danger" style="height: 50px;">Block</button></td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<section th:if="${session.user==null}">
+		<section class="login py-5 border-top-1">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-5 col-md-8 align-item-center">
+						<div class="border rounded"
+							style="background-color: white; box-shadow: 0 0 10px rgba(128, 128, 128, 1);">
+							<center>
+								<h2 class="bg-gray p-4">Administrator Login</h2>
+								<a class="navbar-brand"> <img src="images/logo.png" alt=""
+									id="logo" width="150" />
+								</a>
+							</center>
+							<form th:action="@{Adminlogin}" method="post">
+								<fieldset class="p-4">
+									<div th:if="${error!=null}" th:text="${error}" id="error"
+										style="color: red; font-weight: bold; font-size: 15px;">
+
+									</div>
+									<input name="email" type="email" placeholder="Email"
+										class="border p-3 w-100 my-2" required /> <input
+										name="password" type="password" placeholder="Password"
+										class="border p-3 w-100 my-2" required />
+
+									<button type="submit"
+										class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"
+										style="float: right;">Log in</button>
+
+
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+
+	<!--============================
+=            Footer            =
+=============================-->
+
+	<footer th:if="${session.user!=null}" class="footer section section-sm">
+		<!-- Container Start -->
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-6 col-md-7 offset-md-1 offset-lg-0">
+					<!-- About -->
+					<div class="block about">
+						<!-- footer logo -->
+						<img src="images/logo-footer.png" alt="">
+						<!-- description -->
+						<p align="justify" class="alt-color">Lorem ipsum dolor sit
+							amet, consectetur adipisicing elit, sed do eiusmod tempor
+							incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+							veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+							ex ea commodo consequat.</p>
+					</div>
+				</div>
+				<div class="col-lg-1 col-md-7"></div>
+
+				<!-- Promotion -->
+				<div class="col-lg-4 col-md-7">
+					<!-- App promotion -->
+					<div class="block-2 app-promotion">
+						<div class="mobile d-flex">
+							<a href=""> <!-- Icon --> <img
+								src="images/footer/phone-icon.png" alt="mobile-icon">
+							</a>
+							<p>Get the Dealsy Mobile App and Save more</p>
+						</div>
+						<div class="download-btn d-flex my-3">
+							<a href="#"><img src="images/apps/google-play-store.png"
+								class="img-fluid" alt=""></a> <a href="#" class=" ml-3"><img
+								src="images/apps/apple-app-store.png" class="img-fluid" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Container End -->
+	</footer>
+	<!-- Footer Bottom -->
+	<footer th:if="${session.user!=null}" class="footer-bottom">
+		<!-- Container Start -->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-12">
+					<!-- Copyright -->
+					<div class="copyright">
+						<p>
+							Copyright ©
+							<script>
+								var CurrentYear = new Date();
+								document.write(CurrentYear.getFullYear())
+							</script>
+							. All Rights Reserved, by <a class="text-primary" href="#logo">T.M</a>
+							team
+						</p>
+					</div>
+				</div>
+				<div class="col-sm-6 col-12">
+					<!-- Social Icons -->
+					<ul class="social-media-icons text-right">
+						<li><a class="fa fa-facebook" href="#" target="_blank"></a></li>
+						<li><a class="fa fa-twitter" href="#" target="_blank"></a></li>
+						<li><a class="fa fa-pinterest-p" href="#" target="_blank"></a></li>
+						<li><a class="fa fa-linkedin" href=""></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Container End -->
+		<!-- To Top -->
+		<div class="top-to">
+			<a id="top" href="#logo"><i class="fa fa-angle-up"></i></a>
+		</div>
+	</footer>
+
+
+	<!-- JAVASCRIPTS -->
+	<script src="../static/plugins/jQuery/jquery-1.8.3.min.js"
+		th:src="@{plugins/jQuery/jquery-1.8.3.min.js}"></script>
+	<script src="../static/plugins/jQuery/jquery.min.js"
+		th:src="@{plugins/jQuery/jquery.min.js}"></script>
+	<script src="../static/plugins/bootstrap/js/popper.min.js"
+		th:src="@{plugins/bootstrap/js/popper.min.js}"></script>
+	<script src="../static/plugins/bootstrap/js/bootstrap.min.js"
+		th:src="@{plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<script src="../static/plugins/bootstrap/js/bootstrap-slider.js"
+		th:src="@{plugins/bootstrap/js/bootstrap-slider.js}"></script>
+	<script type="text/javascript"
+		src="../static/plugins/bootstrap/js/bootstrap-datetimepicker.min.js"
+		charset="UTF-8"
+		th:src="@{plugins/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
+	<script type="text/javascript"
+		src="../static/plugins/bootstrap/js/bootstrap-datetimepicker.fr.js"
+		charset="UTF-8"
+		th:src="@{/plugins/bootstrap/js/bootstrap-datetimepicker.fr.js}"></script>
+	<!-- tether js -->
+	<script src="../static/plugins/tether/js/tether.min.js"
+		th:src="@{plugins/tether/js/tether.min.js}"></script>
+	<script src="../static/plugins/raty/jquery.raty-fa.js"
+		th:src="@{plugins/raty/jquery.raty-fa.js}"></script>
+	<script src="../static/plugins/slick-carousel/slick/slick.min.js"
+		th:src="@{plugins/slick-carousel/slick/slick.min.js}"></script>
+	<script
+		src="../static/plugins/jquery-nice-select/js/jquery.nice-select.min.js"
+		th:src="@{plugins/jquery-nice-select/js/jquery.nice-select.min.js}"></script>
+	<script src="../static/plugins/fancybox/jquery.fancybox.pack.js"
+		th:src="@{plugins/fancybox/jquery.fancybox.pack.js}"></script>
+	<script src="../static/plugins/smoothscroll/SmoothScroll.min.js"
+		th:src="@{plugins/smoothscroll/SmoothScroll.min.js}"></script>
+	<!-- google map -->
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
+	<script src="../static/plugins/google-map/gmap.js"
+		th:src="@{plugins/google-map/gmap.js}"></script>
+	<script src="../static/js/script.js" th:src="@{js/script.js}"></script>
+
+	<script type="text/javascript">
+		var mois = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+		$(".sections").hide();
+		$("#charts").fadeIn();
+		
+		function Afficher(e){
+			var value=e.innerHTML;
+			
+			if(value=="Charts"){
+				$(".sections").hide();
+				$("#charts").fadeIn();
+				
+			}
+			if(value=="Customers"){
+				$(".sections").hide();
+				$("#Customers").fadeIn();
+			}
+			if(value=="Trainers"){
+				$(".sections").hide();
+				$("#trainers").fadeIn();
+			}
+			if(value=="Local Providers"){
+				$(".sections").hide();
+				$("#LocalProviders").fadeIn();
+			}
+			if(value=="Comments"){
+				$(".sections").hide();
+				$("#Comments").fadeIn();
+			}
+			if(value=="Trainings"){
+				$(".sections").hide();
+				$("#trainings").fadeIn();
+			}
+			if(value=="Locals"){
+				$(".sections").hide();
+				$("#locals").fadeIn();
+			}
+		}
+	
+	
+		//Add active class to the current button (highlight it)
+		var header = document.getElementById("navglob");
+		var btns = header.getElementsByClassName("nav-item");
+		for (var i = 0; i < btns.length; i++) {
+			btns[i].addEventListener("click", function() {
+				var current = document.getElementsByClassName("active");
+				if(current[0]){
+					current[0].className = current[0].className.replace(" active",
+					"");
+				}
+				
+				this.className += " active";
+			});
+		}
+		function showtable(){
+			var header = document.getElementById("navglob");
+			var btns = header.getElementsByClassName("nav-item");
+			for (var i = 0; i < btns.length; i++) {
+					var current = document.getElementsByClassName("active");
+					current[0].className = current[0].className.replace(" active",
+							"");
+				
+			}
+		}
+		//*************Pagination***********
+
+		//*************Pagination***********
+		</script>
+</body>
+
+</html>
+
+
+

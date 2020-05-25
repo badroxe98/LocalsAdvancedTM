@@ -1,0 +1,72 @@
+{"properties": [
+  {
+    "name": "dir.images",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.images'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.userimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.userimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "dir.Localimages",
+    "type": "java.lang.String",
+    "description": "A description for 'dir.Localimages'"
+  },
+  {
+    "name": "management.endpoints.shutdown.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'management.endpoints.shutdown.enabled'"
+  }
+]}
